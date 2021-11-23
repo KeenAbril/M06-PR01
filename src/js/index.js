@@ -1,8 +1,9 @@
 import { User } from './classes/User';
+import { getRegisterResponse } from './functions/registerFunctions';
 
 const form = document.querySelector('form');
 
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const usrObj = {
         email: form.email.value,
@@ -11,9 +12,16 @@ form.addEventListener('submit', (e) => {
         password: form.password.value,
     };
     if (User.checkUser(usrObj)) {
-        window.alert('works');
-    } else {
-        console.log(usrObj);
-        window.alert('nop');
+        const u = new User(usrObj);
+        const response = await getRegisterResponse(u);
+        if (response.status !== 404) {
+            u.saveUser();
+            console.log(response.msg);
+            // window.alert('si');
+            // TODO rediect a la pagina de equipos
+        } else {
+            // console.log(usrObj);
+            window.alert('nop');
+        }
     }
 });
