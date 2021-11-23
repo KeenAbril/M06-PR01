@@ -1,6 +1,8 @@
 import { User } from './classes/User';
 import { getRegisterResponse } from './functions/registerFunctions';
 
+// console.log('hola');
+
 const form = document.querySelector('form');
 
 form.addEventListener('submit', async (e) => {
@@ -22,7 +24,8 @@ form.addEventListener('submit', async (e) => {
             window.location.href = 'teams.html';
         } else {
             // console.log(usrObj);
-            window.alert('nop');
+            // window.alert('nop');
+            // TODO alerta bien
         }
     }
 });
