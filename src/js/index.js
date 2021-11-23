@@ -19,6 +19,7 @@ form.addEventListener('submit', async (e) => {
             console.log(response.msg);
             // window.alert('si');
             // TODO rediect a la pagina de equipos
+            window.location.href = 'http://localhost:8080/html/teams.html';
         } else {
             // console.log(usrObj);
             window.alert('nop');
