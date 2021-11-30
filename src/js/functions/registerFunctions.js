@@ -13,7 +13,6 @@ export async function getRegisterResponse(usrObj) {
         const data = await response.json();
         // console.log(data);
         // axios retorna els valors com a objecte amb data com a json
-
         return { status: response.status, msg: data };
     } catch (e) {
         return { status: false, msg: e };
