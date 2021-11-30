@@ -2,8 +2,8 @@
 export async function getRegisterResponse(usrObj) {
     try {
         // eslint-disable-next-line no-undef
-        const response = await fetch('https://reqres.in/api/users', {
-            method: 'PUT',
+        const response = await fetch('https://jsonplaceholder.typicode.com/users', {
+            method: 'POST',
             headers: {
                 'Content-type': 'application/json',
             },
