@@ -17,6 +17,8 @@ form.addEventListener('submit', async (e) => {
         const u = new User(usrObj);
         const response = await getRegisterResponse(u);
         if (response.status !== 404) {
+            //console.log(response.msg.id);
+            u.setId(response.msg.id);
             u.saveUser();
             window.location.href = 'teams.html';
         } else {

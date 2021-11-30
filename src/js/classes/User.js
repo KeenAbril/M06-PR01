@@ -6,6 +6,7 @@ export class User {
         this.username = usrObj.username;
         this.realName = usrObj.realName;
         this.password = usrObj.password;
+        this.id = 0;
     }
 
     static checkUser(usrObj) {
@@ -15,9 +16,13 @@ export class User {
             && /^[A-Za-z0-9]{5}$/.test(usrObj.password));
     }
 
+    setId(id) {
+        this.id = id;
+    }
+
     saveUser() {
         try {
-            sessionStorage.setItem('user', JSON.stringify(this));
+            sessionStorage.setItem('User', JSON.stringify(this));
             return { status: true };
         } catch (e) {
             return { status: false, error: e };
