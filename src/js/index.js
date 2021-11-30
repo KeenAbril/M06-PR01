@@ -1,20 +1,13 @@
 import { User } from './classes/User';
 import { getRegisterResponse } from './functions/registerFunctions';
 
-<<<<<<< HEAD
-const form = document.getElementById('formRegister');
-
-console.log(form);
-form.addEventListener('submit', async (e) => {
-=======
 console.log('hola');
 
 // const form = document.getElementById('formRegister');
-const formPlayer = document.getElementById('formPlayer');
+const form = document.getElementById('formPlayer');
 
 // console.log(form);
-/* form.addEventListener('submit', async (e) => {
->>>>>>> 3aa756cb974cc03dbeb3545f22f2a4661113cea3
+form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const usrObj = {
         email: form.email.value,
