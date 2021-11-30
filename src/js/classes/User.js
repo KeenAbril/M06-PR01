@@ -17,7 +17,7 @@ export class User {
 
     saveUser() {
         try {
-            sessionStorage.setItem('user', JSON.stringify(this));
+            sessionStorage.setItem('User', JSON.stringify(this));
             return { status: true };
         } catch (e) {
             return { status: false, error: e };

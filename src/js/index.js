@@ -16,15 +16,13 @@ form.addEventListener('submit', async (e) => {
     };
 
     if (User.checkUser(usrObj)) {
-        
         const u = new User(usrObj);
         const response = await getRegisterResponse(u);
         if (response.status !== 404) {
             u.saveUser();
-        /*     console.log(response.msg);
-            window.alert('si'); */
+            //console.log(status.status);
             // TODO rediect a la pagina de equipos
-            window.location.href = 'teams.html';
+            //window.location.href = 'teams.html';
         } else {
             console.log(usrObj);
             window.alert('nop');
