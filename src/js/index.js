@@ -1,7 +1,7 @@
 import { User } from './classes/User';
 import { getRegisterResponse } from './functions/registerFunctions';
 
-// console.log('hola');
+console.log('hola');
 
 const form = document.querySelector('form');
 
