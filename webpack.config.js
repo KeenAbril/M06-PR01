@@ -3,10 +3,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
-        index: './src/js/index.js',
+        index: ['babel-polyfill', './src/js/index.js'],
         teams: './src/js/teams.js',
         players: './src/js/players.js',
-        shared: ['babel-polyfill'],
     },
 
     output: {
@@ -27,6 +26,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: 'players.html',
             template: './src/html/players.html',
+            chunks: ['players'],
         }),
     ],
     devServer: {
