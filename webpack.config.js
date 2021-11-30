@@ -22,6 +22,10 @@ module.exports = {
             template: './src/html/teams.html',
             chunks: ['teams'],
         }),
+        new HtmlWebpackPlugin({
+            filename: 'players.html',
+            template: './src/html/players.html',
+        }),
     ],
     devServer: {
         static: './dist',

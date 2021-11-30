@@ -1,11 +1,15 @@
 import { User } from './classes/User';
+import { Player } from './classes/Player';
 import { getRegisterResponse } from './functions/registerFunctions';
+import { getPlayerResponse } from './functions/playerFunctions';
 
 console.log('hola');
 
-const form = document.querySelector('form');
+// const form = document.getElementById('formRegister');
+const formPlayer = document.getElementById('formPlayer');
 
-form.addEventListener('submit', async (e) => {
+// console.log(form);
+/* form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const usrObj = {
         email: form.email.value,
@@ -21,11 +25,27 @@ form.addEventListener('submit', async (e) => {
             console.log(response.msg);
             // window.alert('si');
             // TODO rediect a la pagina de equipos
-            window.location.href = 'teams.html';
+            window.location.href = 'players.html';
         } else {
             // console.log(usrObj);
             // window.alert('nop');
             // TODO alerta bien
         }
+    }
+});
+ */
+formPlayer.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    console.log('1');
+    /* const playerObj = {
+        season: '2020',
+        team: '529',
+    };
+    const p = new User(playerObj); */
+    const response = await getPlayerResponse();
+    if (response.status !== 404) {
+        console.log(response.msg);
+    } else {
+        console.log(response.status);
     }
 });
