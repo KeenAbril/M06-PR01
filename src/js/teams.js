@@ -6,5 +6,5 @@ document.addEventListener('click', async () => {
     console.log('call');
     const resp = await getTeams();
     teams.push(...resp.msg.response);
+    console.log(teams);
 });
-console.log(teams);
