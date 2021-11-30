@@ -5,6 +5,7 @@ module.exports = {
     entry: {
         index: './src/js/index.js',
         teams: './src/js/teams.js',
+        players: './src/js/players.js',
         shared: ['babel-polyfill'],
     },
 
