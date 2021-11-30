@@ -4,8 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry: {
         index: ['babel-polyfill', './src/js/index.js'],
-        teams: './src/js/teams.js',
-        players: './src/js/players.js',
+        teams: ['babel-polyfill', './src/js/teams.js'],
+        players: ['babel-polyfill', './src/js/players.js'],
     },
 
     output: {

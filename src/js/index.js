@@ -5,9 +5,7 @@ const form = document.getElementById('formRegister');
 
 console.log(form);
 form.addEventListener('submit', async (e) => {
-    console.log("0");
     e.preventDefault();
-    console.log("1");
     const usrObj = {
         email: form.email.value,
         username: form.username.value,
@@ -19,10 +17,10 @@ form.addEventListener('submit', async (e) => {
         const u = new User(usrObj);
         const response = await getRegisterResponse(u);
         if (response.status !== 404) {
+            //console.log(response.msg.id);
+            u.setId(response.msg.id);
             u.saveUser();
-            //console.log(status.status);
-            // TODO rediect a la pagina de equipos
-            //window.location.href = 'teams.html';
+            window.location.href = 'teams.html';
         } else {
             console.log(usrObj);
             window.alert('nop');
