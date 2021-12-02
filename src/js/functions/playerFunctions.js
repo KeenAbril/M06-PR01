@@ -1,8 +1,8 @@
 /* eslint-disable import/prefer-default-export */
-export async function getPlayerResponse() {
+export async function getPlayerResponse(team) {
     try {
         // eslint-disable-next-line no-undef
-        const response = await fetch('https://v3.football.api-sports.io/players?season=2020&team=529', {
+        const response = await fetch(`https://v3.football.api-sports.io/players?league=140&season=2020&team=${team}`, {
             method: 'GET',
             headers: {
                 'x-rapidapi-host': 'v3.football.api-sports.io',

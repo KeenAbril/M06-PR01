@@ -20,7 +20,7 @@ form.addEventListener('submit', async (e) => {
             //console.log(response.msg.id);
             u.setId(response.msg.id);
             u.saveUser();
-            window.location.href = 'teams.html';
+            window.location.href = 'players.html';
         } else {
             console.log(usrObj);
             window.alert('nop');
