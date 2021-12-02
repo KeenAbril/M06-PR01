@@ -1,11 +1,13 @@
 import { getPlayerResponse } from './functions/playerFunctions';
+import { Player } from './classes/Player';
 
 const formPlayer = document.getElementById('formPlayer');
 
 const playerList = `
     <li>
         <div>
-            <p>$$ITEM_NAME$$</p>
+            <img src="$$ITEM_PHOTO$$">
+            <a>$$ITEM_NAME$$</a>
         </div>
     </li>
 `;
@@ -22,8 +24,20 @@ formPlayer.addEventListener('submit', async (e) => {
         const players = response.msg.response;
 
         for (let i = 0; i < players.length; i++) {
-            const replacedItemHTML = playerList.replace('$$ITEM_NAME$$', JSON.stringify(players[i].player));
-            ul.insertAdjacentHTML('beforeend', replacedItemHTML);    
+
+            const playerObj = {
+                id: players[i].player.id,
+                name: players[i].player.name,
+                photo: players[i].player.photo,
+                team: formPlayer.team.value,
+            };
+
+            console.log(JSON.stringify(playerObj));
+
+            const player = new Player(playerObj);
+
+            const replacedItemHTML = playerList.replace('$$ITEM_PHOTO$$', player.photo).replace('$$ITEM_NAME$$', player.name);
+            ul.insertAdjacentHTML('beforeend', replacedItemHTML);
         }
     } else {
         console.log(response.status);
