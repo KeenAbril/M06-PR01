@@ -14,3 +14,17 @@ export async function getTeams() {
         return { status: false, msg: error };
     }
 }
+
+export function serveTeams(teams, teamsList) {
+    // https://media.api-sports.io/football/teams/{team_id}.png
+    for (const team of teams) {
+        const item = `
+        <li class='team_item' name=${team.team.id}>
+            <div>
+                <img src="https://media.api-sports.io/football/teams/${team.team.id}.png" alt="">
+                ${team.team.name}
+            </div>
+        </li>`;
+        teamsList.insertAdjacentHTML('beforeend', item);
+    }
+}
