@@ -4,7 +4,7 @@ import { Player } from './classes/Player';
 const formPlayer = document.getElementById('formPlayer');
 
 const playerList = `
-    <li>
+    <li name="$$ITEM_ID$$" class='list-group-item'>
         <div>
             <img src="$$ITEM_PHOTO$$">
             <a>$$ITEM_NAME$$</a>
@@ -12,7 +12,7 @@ const playerList = `
     </li>
 `;
 
-const ul = document.querySelector('ul');
+const ul = document.querySelector('#playerList');
 
 formPlayer.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -36,7 +36,7 @@ formPlayer.addEventListener('submit', async (e) => {
 
             const player = new Player(playerObj);
 
-            const replacedItemHTML = playerList.replace('$$ITEM_PHOTO$$', player.photo).replace('$$ITEM_NAME$$', player.name);
+            const replacedItemHTML = playerList.replace('$$ITEM_ID$$', player.id).replace('$$ITEM_PHOTO$$', player.photo).replace('$$ITEM_NAME$$', player.name);
             ul.insertAdjacentHTML('beforeend', replacedItemHTML);
         }
     } else {
