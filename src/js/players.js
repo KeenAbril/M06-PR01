@@ -1,4 +1,4 @@
-import { getPlayerResponse } from './functions/playerFunctions';
+import { getPlayerListResponse } from './functions/playerFunctions';
 import { Player } from './classes/Player';
 
 const formPlayer = document.getElementById('formPlayer');
@@ -18,7 +18,7 @@ formPlayer.addEventListener('submit', async (e) => {
     e.preventDefault();
     console.log('1');
     
-    const response = await getPlayerResponse(formPlayer.team.value);
+    const response = await getPlayerListResponse(formPlayer.team.value);
     if (response.status !== 404) {
         console.log(response.msg);
         const players = response.msg.response;
