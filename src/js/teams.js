@@ -16,21 +16,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 const playerList = `
-    <li name="$$ITEM_ID$$" class='list-group-item player_item'>
-        <div>
-            <img src="$$ITEM_PHOTO$$">
-            <a>$$ITEM_NAME$$</a>
-        </div>
-    </li>
+<li name="$$ITEM_ID$$" class='list-group-item player_item'>
+<div>
+    <img src="$$ITEM_PHOTO$$">
+    <a>$$ITEM_NAME$$</a>
+</div>
+</li>
 `;
 
 const playerDetail = `
-    <li name="$$ITEM_ID$$" class='list-group-item'>
-        <div>
-            <img src="$$ITEM_PHOTO$$">
-            <a>$$ITEM_NAME$$</a>
-        </div>
-    </li>
+<img src="$$ITEM_PHOTO$$">
+<p>$$ITEM_NAME$$</p>
+<p> Edad: $$ITEM_AGE$$</p>
+<img src="../img/estrella.png">
 `;
 
 const ul = document.querySelector('#playerList');
@@ -48,6 +46,8 @@ list.addEventListener('click', async (e) => {
         if (response.status !== 404) {
             console.log(response.msg);
             const players = response.msg.response;
+
+            ul.innerHTML = '';
 
             for (let i = 0; i < players.length; i++) {
                 const playerObj = {
@@ -74,25 +74,32 @@ ul.addEventListener('click', async (e) => {
 
     console.log(e.target);
     const item = e.target.closest('.player_item');
+    console.log(item.getAttribute('name'));
     if (item) {
         const idPlayer = item.getAttribute('name');
-        const response = await getPlayerListResponse(idPlayer);
+        const response = await getPlayerResponse(idPlayer);
         if (response.status !== 404) {
             console.log(response.msg);
-            const playersResponse = response.msg.response;
+            const playersResponse = response.msg.response[0];
+
+            console.log(playersResponse.player.id);
 
             const playerObj = {
-                id: playersResponse[i].player.id,
-                name: playersResponse[i].player.name,
-                photo: playersResponse[i].player.photo,
+                id: playersResponse.player.id,
+                name: playersResponse.player.name,
+                age: playersResponse.player.age,
+                photo: playersResponse.player.photo,
                 //team: id,
             };
+
+            console.log(2);
 
             console.log(JSON.stringify(playerObj));
 
             const player = new Player(playerObj);
 
-            const replacedItemHTML = playerDetail.replace('$$ITEM_ID$$', player.id).replace('$$ITEM_PHOTO$$', player.photo).replace('$$ITEM_NAME$$', player.name);
+            const replacedItemHTML = playerDetail.replace('$$ITEM_AGE$$', player.age).replace('$$ITEM_PHOTO$$', player.photo).replace('$$ITEM_NAME$$', player.name);
+            playerDetailDiv.innerHTML = '';
             playerDetailDiv.insertAdjacentHTML('beforeend', replacedItemHTML);
         } else {
             console.log(response.status);
