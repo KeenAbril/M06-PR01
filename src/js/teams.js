@@ -43,7 +43,7 @@ list.addEventListener('click', async (e) => {
                     id: players[i].player.id,
                     name: players[i].player.name,
                     photo: players[i].player.photo,
-                    team: id,
+                    // team: id,
                 };
 
                 console.log(JSON.stringify(playerObj));

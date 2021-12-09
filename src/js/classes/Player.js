@@ -4,6 +4,6 @@ export class Player {
         this.id = playerObj.id;
         this.name = playerObj.name;
         this.photo = playerObj.photo;
-        this.team = playerObj.team;
+        // this.team = playerObj.team;
     }
 }

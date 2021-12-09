@@ -6,6 +6,7 @@ module.exports = {
         index: ['babel-polyfill', './src/js/index.js'],
         teams: ['babel-polyfill', './src/js/teams.js', './src/js/detail.js'],
         players: ['babel-polyfill', './src/js/players.js'],
+        myTeam: ['babel-polyfill', './src/js/myTeam.js'],
     },
 
     output: {
@@ -27,6 +28,11 @@ module.exports = {
             filename: 'players.html',
             template: './src/html/players.html',
             chunks: ['players'],
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'myTeam.html',
+            template: './src/html/myTeam.html',
+            chunks: ['myTeam'],
         }),
     ],
     devServer: {
