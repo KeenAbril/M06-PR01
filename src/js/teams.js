@@ -1,17 +1,19 @@
 import { getTeams, serveTeams } from './functions/teamsFunctions';
-import { getPlayerListResponse, getPlayerResponse, playerCheckFavorite, playerSetFavorite } from './functions/playerFunctions';
+import { getPlayerListResponse, getPlayerResponse, servePlayers, playerCheckFavorite, playerSetFavorite } from './functions/playerFunctions';
 import { Player } from './classes/Player';
 
 console.log('teams');
 const teams = [];
-const list = document.getElementById('teamsList');
+const teamsList = document.getElementById('teamsList');
+const playersList = document.querySelector('#playerList');
+const playerDetailDiv = document.querySelector('.playerDetail');
 
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('call');
     const resp = await getTeams();
     teams.push(...resp.msg.response);
     console.log(teams);
-    serveTeams(teams, list);
+    serveTeams(teams, teamsList);
 });
 
 const playerList = `
@@ -32,10 +34,8 @@ $$ITEM_STAR$$
 </div>
 `;
 
-const ul = document.querySelector('#playerList');
-const playerDetailDiv = document.querySelector('.playerDetail');
-
-list.addEventListener('click', async (e) => {
+// get team players
+teamsList.addEventListener('click', async (e) => {
     console.log(e.target);
     const item = e.target.closest('.team_item');
     if (item) {
@@ -46,16 +46,23 @@ list.addEventListener('click', async (e) => {
         const response = await getPlayerListResponse(id);
         if (response.status !== 404) {
             console.log(response.msg);
-            const players = response.msg.response;
+            const playersResponse = response.msg.response;
+            const players = [];
+            for (const pItem of playersResponse) {
+                const playerObj = {
+                    id: pItem.player.id,
+                    name: pItem.player.name,
+                    photo: pItem.player.photo,
+                };
+                players.push(playerObj);
+            }
+            servePlayers(players, playersList);
+            /* for (let i = 0; i < players.length; i++) {
 
-            ul.innerHTML = '';
-
-            for (let i = 0; i < players.length; i++) {
                 const playerObj = {
                     id: players[i].player.id,
                     name: players[i].player.name,
                     photo: players[i].player.photo,
-                    //team: id,
                 };
 
                 console.log(JSON.stringify(playerObj));
@@ -63,16 +70,16 @@ list.addEventListener('click', async (e) => {
                 const player = new Player(playerObj);
 
                 const replacedItemHTML = playerList.replace('$$ITEM_ID$$', player.id).replace('$$ITEM_PHOTO$$', player.photo).replace('$$ITEM_NAME$$', player.name);
-                ul.insertAdjacentHTML('beforeend', replacedItemHTML);
-            }
+                playersList.insertAdjacentHTML('beforeend', replacedItemHTML);
+            } */
         } else {
             console.log(response.status);
         }
     }
 });
 
-ul.addEventListener('click', async (e) => {
-
+// get player detail
+playersList.addEventListener('click', async (e) => {
     console.log(e.target);
     const item = e.target.closest('.player_item');
     console.log(item.getAttribute('name'));
