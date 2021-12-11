@@ -7,6 +7,7 @@ const teams = [];
 const teamsList = document.getElementById('teamsList');
 const playersList = document.querySelector('#playerList');
 const playerDetailDiv = document.querySelector('.playerDetail');
+const starIcon;
 
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('call');
@@ -113,13 +114,15 @@ playersList.addEventListener('click', async (e) => {
                 .replace('$$ITEM_STAR$$', playerCheckFavorite);
             playerDetailDiv.innerHTML = '';
             playerDetailDiv.insertAdjacentHTML('beforeend', replacedItemHTML);
+
+            starIcon = playerDetailDiv.querySelector('svg');
         } else {
             console.log(response.status);
         }
     }
 })
 
-playerDetailDiv.addEventListener('click', (e) => {
+starIcon.addEventListener('click', (e) => {
     const item = e.target.closest('.detail_item');
     if (item) {
         const idPlayer = item.getAttribute('name');
