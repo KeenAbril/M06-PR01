@@ -1,6 +1,5 @@
 import { getTeams, serveTeams } from './functions/teamsFunctions';
-import { getPlayerListResponse } from './functions/playerFunctions';
-import { getPlayerResponse } from './functions/playerFunctions';
+import { getPlayerListResponse, getPlayerResponse, playerCheckFavorite, playerSetFavorite } from './functions/playerFunctions';
 import { Player } from './classes/Player';
 
 console.log('teams');
@@ -25,10 +24,12 @@ const playerList = `
 `;
 
 const playerDetail = `
+<div name="$$ITEM_ID$$" class='detail_item'>
 <img src="$$ITEM_PHOTO$$">
 <p>$$ITEM_NAME$$</p>
 <p> Edad: $$ITEM_AGE$$</p>
-<img src="../img/estrella.png">
+$$ITEM_STAR$$
+</div>
 `;
 
 const ul = document.querySelector('#playerList');
@@ -98,7 +99,11 @@ ul.addEventListener('click', async (e) => {
 
             const player = new Player(playerObj);
 
-            const replacedItemHTML = playerDetail.replace('$$ITEM_AGE$$', player.age).replace('$$ITEM_PHOTO$$', player.photo).replace('$$ITEM_NAME$$', player.name);
+            const replacedItemHTML = playerDetail.replace('$$ITEM_ID$$', player.id)
+                .replace('$$ITEM_AGE$$', player.age)
+                .replace('$$ITEM_PHOTO$$', player.photo)
+                .replace('$$ITEM_NAME$$', player.name)
+                .replace('$$ITEM_STAR$$', playerCheckFavorite);
             playerDetailDiv.innerHTML = '';
             playerDetailDiv.insertAdjacentHTML('beforeend', replacedItemHTML);
         } else {
@@ -106,3 +111,12 @@ ul.addEventListener('click', async (e) => {
         }
     }
 })
+
+playerDetailDiv.addEventListener('click', (e) => {
+    const item = e.target.closest('.detail_item');
+    if (item) {
+        const idPlayer = item.getAttribute('name');
+        item.removeChild(item.lastChild);
+        item.insertAdjacentHTML('beforeend', playerSetFavorite(idPlayer));
+    }
+});

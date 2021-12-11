@@ -4,7 +4,7 @@ export async function getTeams() {
         const response = await fetch('https://v3.football.api-sports.io/teams?league=140&season=2020', {
             method: 'GET',
             headers: {
-                'x-rapidapi-key': 'b59de48fa9b382b12b64f470c88cae4c',
+                'x-rapidapi-key': '5facc982b3550bc6d921ae7ec95fb7e3',
                 'x-rapidapi-host': 'v3.football.api-sports.io',
             },
         });
