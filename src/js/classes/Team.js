@@ -1,5 +1,10 @@
-class Team {
+// eslint-disable-next-line import/prefer-default-export
+export class Team {
     constructor(teamObj) {
-        this.id = teamObj.id;
+        this.players = teamObj.players;
+    }
+
+    addPlayer(p) {
+        this.players.push(p);
     }
 }

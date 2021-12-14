@@ -1,5 +1,12 @@
+/* eslint-disable no-console */
 import { getTeams, serveTeams } from './functions/teamsFunctions';
-import { getPlayerListResponse, getPlayerResponse, servePlayers, playerCheckFavorite, playerSetFavorite } from './functions/playerFunctions';
+import {
+    getPlayerListResponse,
+    getPlayerResponse,
+    servePlayers,
+    playerCheckFavorite,
+    playerSetFavorite,
+} from './functions/playerFunctions';
 import { Player } from './classes/Player';
 
 console.log('teams');
@@ -7,7 +14,7 @@ const teams = [];
 const teamsList = document.getElementById('teamsList');
 const playersList = document.querySelector('#playerList');
 const playerDetailDiv = document.querySelector('.playerDetail');
-const starIcon;
+let starIcon;
 
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('call');
@@ -16,15 +23,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log(teams);
     serveTeams(teams, teamsList);
 });
-
-const playerList = `
-<li name="$$ITEM_ID$$" class='list-group-item player_item'>
-<div>
-    <img src="$$ITEM_PHOTO$$">
-    <a>$$ITEM_NAME$$</a>
-</div>
-</li>
-`;
 
 const playerDetail = `
 <div name="$$ITEM_ID$$" class='detail_item'>
@@ -58,21 +56,6 @@ teamsList.addEventListener('click', async (e) => {
                 players.push(playerObj);
             }
             servePlayers(players, playersList);
-            /* for (let i = 0; i < players.length; i++) {
-
-                const playerObj = {
-                    id: players[i].player.id,
-                    name: players[i].player.name,
-                    photo: players[i].player.photo,
-                };
-
-                console.log(JSON.stringify(playerObj));
-
-                const player = new Player(playerObj);
-
-                const replacedItemHTML = playerList.replace('$$ITEM_ID$$', player.id).replace('$$ITEM_PHOTO$$', player.photo).replace('$$ITEM_NAME$$', player.name);
-                playersList.insertAdjacentHTML('beforeend', replacedItemHTML);
-            } */
         } else {
             console.log(response.status);
         }
@@ -98,7 +81,7 @@ playersList.addEventListener('click', async (e) => {
                 name: playersResponse.player.name,
                 age: playersResponse.player.age,
                 photo: playersResponse.player.photo,
-                //team: id,
+                // team: id,
             };
 
             console.log(2);
@@ -120,7 +103,7 @@ playersList.addEventListener('click', async (e) => {
             console.log(response.status);
         }
     }
-})
+});
 
 starIcon.addEventListener('click', (e) => {
     const item = e.target.closest('.detail_item');
