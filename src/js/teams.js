@@ -7,7 +7,6 @@ const teams = [];
 const teamsList = document.getElementById('teamsList');
 const playersList = document.querySelector('#playerList');
 const playerDetailDiv = document.querySelector('.playerDetail');
-const starIcon;
 
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('call');
@@ -29,9 +28,12 @@ const playerList = `
 const playerDetail = `
 <div name="$$ITEM_ID$$" class='detail_item'>
 <img src="$$ITEM_PHOTO$$">
-<p>$$ITEM_NAME$$</p>
+<p>Nombre: $$ITEM_FIRSTNAME$$</p>
+<p>Apellido: $$ITEM_LASTNAME$$</p>
 <p> Edad: $$ITEM_AGE$$</p>
-$$ITEM_STAR$$
+<div id="divStar">
+    $$ITEM_STAR$$
+</div>
 </div>
 `;
 
@@ -53,6 +55,8 @@ teamsList.addEventListener('click', async (e) => {
                 const playerObj = {
                     id: pItem.player.id,
                     name: pItem.player.name,
+                    firstName: pItem.player.firstname,
+                    lastName: pItem.player.lastname,
                     photo: pItem.player.photo,
                 };
                 players.push(playerObj);
@@ -96,6 +100,8 @@ playersList.addEventListener('click', async (e) => {
             const playerObj = {
                 id: playersResponse.player.id,
                 name: playersResponse.player.name,
+                firstName: playersResponse.player.firstname,
+                lastName: playersResponse.player.lastname,
                 age: playersResponse.player.age,
                 photo: playersResponse.player.photo,
                 //team: id,
@@ -110,23 +116,24 @@ playersList.addEventListener('click', async (e) => {
             const replacedItemHTML = playerDetail.replace('$$ITEM_ID$$', player.id)
                 .replace('$$ITEM_AGE$$', player.age)
                 .replace('$$ITEM_PHOTO$$', player.photo)
-                .replace('$$ITEM_NAME$$', player.name)
-                .replace('$$ITEM_STAR$$', playerCheckFavorite);
+                .replace('$$ITEM_FIRSTNAME$$', player.firstName)
+                .replace('$$ITEM_LASTNAME$$', player.lasttName)
+                .replace('$$ITEM_STAR$$', playerCheckFavorite(player));
             playerDetailDiv.innerHTML = '';
             playerDetailDiv.insertAdjacentHTML('beforeend', replacedItemHTML);
 
-            starIcon = playerDetailDiv.querySelector('svg');
+            const iconDiv = playerDetailDiv.querySelector('#divStar');
+            console.log(iconDiv);
+            iconDiv.addEventListener('click', () => {
+                const starIcon = iconDiv.querySelector('svg');
+                console.log('holas');
+
+                iconDiv.removeChild(starIcon);
+                iconDiv.insertAdjacentHTML('beforeend', playerSetFavorite(player));
+                //console.log(detail.lastChild);
+            });
         } else {
             console.log(response.status);
         }
     }
 })
-
-starIcon.addEventListener('click', (e) => {
-    const item = e.target.closest('.detail_item');
-    if (item) {
-        const idPlayer = item.getAttribute('name');
-        item.removeChild(item.lastChild);
-        item.insertAdjacentHTML('beforeend', playerSetFavorite(idPlayer));
-    }
-});

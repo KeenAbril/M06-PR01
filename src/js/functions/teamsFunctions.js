@@ -1,14 +1,20 @@
 // eslint-disable-next-line import/prefer-default-export
 export async function getTeams() {
     try {
-        const response = await fetch('https://v3.football.api-sports.io/teams?league=140&season=2020', {
+        //COMO SE HARIA CON LA API
+        /* const response = await fetch('https://v3.football.api-sports.io/teams?league=140&season=2020', {
             method: 'GET',
             headers: {
                 'x-rapidapi-key': '5facc982b3550bc6d921ae7ec95fb7e3',
                 'x-rapidapi-host': 'v3.football.api-sports.io',
             },
-        });
+        }); */
+
+        const response = await fetch('../json/Teams.json'); 
+
         const data = await response.json();
+
+        console.log(data);
         return { status: response.status, msg: data };
     } catch (error) {
         return { status: false, msg: error };
