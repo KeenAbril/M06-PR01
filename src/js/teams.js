@@ -1,7 +1,8 @@
-import { getTeams, serveTeams } from './functions/teamsFunctions';
-import { getPlayerListResponse, getPlayerResponse, servePlayers, playerCheckFavorite, playerSetFavorite } from './functions/playerFunctions';
-import { Player } from './classes/Player';
 import { getUserNameFromkSesionStorage, checkSesionStorage, logOut } from './functions/registerFunctions'
+import { getTeams, serveTeams } from './functions/teamsFunctions';
+import { getPlayerListResponse, getPlayerResponse, servePlayers} from './functions/playerFunctions';
+import { playerCheckFavorite, playerSetFavorite } from './functions/detailFunctions';
+import { Player } from './classes/Player';
 
 const teams = [];
 const header = document.querySelector('header');
