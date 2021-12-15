@@ -13,7 +13,7 @@ export class User {
         return (
             /^[A-Za-z ]+$/.test(usrObj.realName)
             && /^\w+([\.\+\-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(usrObj.email)
-            && /^[A-Za-z0-9]{5}$/.test(usrObj.password));
+            && /^[A-Za-z0-9]{5}$/.test(usrObj.password)) && usrObj.username !== '';
     }
 
     setId(id) {

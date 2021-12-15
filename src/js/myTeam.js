@@ -1,6 +1,10 @@
 import { Player } from './classes/Player';
 import { getPlayerResponse, servePlayers } from './functions/playerFunctions';
+import { getUserNameFromkSesionStorage, checkSesionStorage, logOut } from './functions/registerFunctions'
 
+const header = document.querySelector('header');
+const usarname = header.querySelector('a');
+const logout = header.querySelector('button');
 const playersList = document.getElementById('playersList');
 
 // Test Function adds default
@@ -30,7 +34,17 @@ document.querySelector('#testLoad').addEventListener('click', async () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    const list = JSON.parse(localStorage.getItem('playerList'));
-    console.log(list);
-    servePlayers(list, playersList);
+    if (checkSesionStorage()) {
+        usarname.text = getUserNameFromkSesionStorage();
+        const list = JSON.parse(localStorage.getItem('playerList'));
+        console.log(list);
+        servePlayers(list, playersList);
+    } else {
+        window.location.href = 'index.html';
+    }
+});
+
+logout.addEventListener('click', () => {
+    logOut();
+    window.location.href = 'index.html';
 });

@@ -1,19 +1,31 @@
 import { getTeams, serveTeams } from './functions/teamsFunctions';
 import { getPlayerListResponse, getPlayerResponse, servePlayers, playerCheckFavorite, playerSetFavorite } from './functions/playerFunctions';
 import { Player } from './classes/Player';
+import { getUserNameFromkSesionStorage, checkSesionStorage, logOut } from './functions/registerFunctions'
 
-console.log('teams');
 const teams = [];
+const header = document.querySelector('header');
 const teamsList = document.getElementById('teamsList');
 const playersList = document.querySelector('#playerList');
 const playerDetailDiv = document.querySelector('.playerDetail');
+const usarname = header.querySelector('a');
+const logout = header.querySelector('button');
 
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log('call');
-    const resp = await getTeams();
-    teams.push(...resp.msg.response);
-    console.log(teams);
-    serveTeams(teams, teamsList);
+    if (checkSesionStorage()) {
+        usarname.text = getUserNameFromkSesionStorage();
+        const resp = await getTeams();
+        teams.push(...resp.msg.response);
+        console.log(teams);
+        serveTeams(teams, teamsList);
+    } else {
+        window.location.href = 'index.html';
+    }
+});
+
+logout.addEventListener('click', () => {
+    logOut();
+    window.location.href = 'index.html';
 });
 
 const playerList = `
