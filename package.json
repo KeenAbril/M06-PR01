@@ -25,7 +25,8 @@
     "webpack-dev-server": "^4.4.0"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0"
+    "babel-polyfill": "^6.26.0",
+    "chart.js": "^3.6.2"
   },
   "bugs": {
     "url": "https://github.com/KeenAbril/M06-PR01/issues"

@@ -1,9 +1,13 @@
+import { Chart, registerables } from 'chart.js';
 import { Player } from './classes/Player';
 import { getPlayerResponse, servePlayers } from './functions/playerFunctions';
+import { createData } from './constants/chartConstants';
 
+Chart.register(...registerables);
 const playersList = document.getElementById('playersList');
 
 // Test Function adds default
+/*
 async function saveTestPlayers() {
     const playerList = [];
     const response = await getPlayerResponse(529);
@@ -23,14 +27,47 @@ async function saveTestPlayers() {
     }
     localStorage.setItem('playerList', JSON.stringify(playerList));
 }
-
-document.querySelector('#testLoad').addEventListener('click', async () => {
-    await saveTestPlayers();
-    alert('Players saved');
-});
-
+try {
+    document.querySelector('#testLoad').addEventListener('click', async () => {
+        await saveTestPlayers();
+        alert('Players saved');
+    });
+} catch {}
+*/
+let list;
+let statChart;
 document.addEventListener('DOMContentLoaded', () => {
-    const list = JSON.parse(localStorage.getItem('playerList'));
+    list = JSON.parse(localStorage.getItem('players'));
     console.log(list);
     servePlayers(list, playersList);
+});
+
+playersList.addEventListener('click', (e) => {
+    const item = e.target.closest('.player_item');
+    if (item) {
+        const idPlayer = item.getAttribute('name');
+        // eslint-disable-next-line eqeqeq
+        const playerObj = list.find((elem) => elem.id == idPlayer);
+        const player = new Player(playerObj);
+        console.log(player);
+        // shots, passes, key passes, duels, dribbles
+        const config = {
+            type: 'radar',
+            data: createData([
+                player.getShots(), player.getPasses(),
+                player.getKeyPasses(), player.getDuels(),
+                player.getDribbles(),
+            ]),
+            options: {},
+        };
+        console.log(config.data);
+        // eslint-disable-next-line no-unused-vars
+        if (statChart instanceof Chart) {
+            statChart.destroy();
+        }
+        statChart = new Chart(
+            document.getElementById('myChart'),
+            config,
+        );
+    }
 });

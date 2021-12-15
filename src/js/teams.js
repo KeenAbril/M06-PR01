@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 import { getTeams, serveTeams } from './functions/teamsFunctions';
 import {
@@ -6,6 +7,8 @@ import {
     servePlayers,
     playerCheckFavorite,
     playerSetFavorite,
+    getPlayerJSON,
+    serveDetails,
 } from './functions/playerFunctions';
 import { Player } from './classes/Player';
 
@@ -13,7 +16,8 @@ console.log('teams');
 const teams = [];
 const teamsList = document.getElementById('teamsList');
 const playersList = document.querySelector('#playerList');
-const playerDetailDiv = document.querySelector('.playerDetail');
+const playerDetailDiv = document.querySelector('#playerDetail');
+let presentPlayer;
 
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('call');
@@ -23,30 +27,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     serveTeams(teams, teamsList);
 });
 
-const playerDetail = `
-<div name="$$ITEM_ID$$" class='detail_item'>
-<img src="$$ITEM_PHOTO$$">
-<p>Nombre: $$ITEM_FIRSTNAME$$</p>
-<p>Apellido: $$ITEM_LASTNAME$$</p>
-<p> Edad: $$ITEM_AGE$$</p>
-<div id="divStar">
-    $$ITEM_STAR$$
-</div>
-</div>
-`;
-
 // get team players
 teamsList.addEventListener('click', async (e) => {
     console.log(e.target);
     const item = e.target.closest('.team_item');
     if (item) {
         const id = item.getAttribute('name');
-        console.log(item);
-        console.log(id);
+        // console.log(item);
+        // console.log(id);
 
         const response = await getPlayerListResponse(id);
         if (response.status !== 404) {
-            console.log(response.msg);
+            // console.log(response.msg);
             const playersResponse = response.msg.response;
             const players = [];
             for (const pItem of playersResponse) {
@@ -68,16 +60,16 @@ teamsList.addEventListener('click', async (e) => {
 
 // get player detail
 playersList.addEventListener('click', async (e) => {
-    console.log(e.target);
+    // console.log(e.target);
     const item = e.target.closest('.player_item');
-    console.log(item.getAttribute('name'));
+    // console.log(item.getAttribute('name'));
     if (item) {
         const idPlayer = item.getAttribute('name');
-        const response = await getPlayerResponse(idPlayer);
+        const response = await getPlayerJSON(idPlayer);
         if (response.status !== 404) {
             console.log(response.msg);
-            const playersResponse = response.msg.response[0];
-
+            // const playersResponse = response.msg.response;
+            const playersResponse = response.msg;
             console.log(playersResponse.player.id);
 
             const playerObj = {
@@ -87,36 +79,31 @@ playersList.addEventListener('click', async (e) => {
                 lastName: playersResponse.player.lastname,
                 age: playersResponse.player.age,
                 photo: playersResponse.player.photo,
-                // team: id,
+                team: playersResponse.statistics[0].team.id,
+                shots: playersResponse.statistics[0].shots,
+                passes: playersResponse.statistics[0].passes,
+                duels: playersResponse.statistics[0].duels,
+                dribbles: playersResponse.statistics[0].dribbles,
+
             };
+            console.log(playersResponse.statistics[0].team.id);
 
-            console.log(2);
+            // console.log(JSON.stringify(playerObj));
 
-            console.log(JSON.stringify(playerObj));
-
-            const player = new Player(playerObj);
-
-            const replacedItemHTML = playerDetail.replace('$$ITEM_ID$$', player.id)
-                .replace('$$ITEM_AGE$$', player.age)
-                .replace('$$ITEM_PHOTO$$', player.photo)
-                .replace('$$ITEM_FIRSTNAME$$', player.firstName)
-                .replace('$$ITEM_LASTNAME$$', player.lasttName)
-                .replace('$$ITEM_STAR$$', playerCheckFavorite(player));
-            playerDetailDiv.innerHTML = '';
-            playerDetailDiv.insertAdjacentHTML('beforeend', replacedItemHTML);
-
-            const iconDiv = playerDetailDiv.querySelector('#divStar');
-            console.log(iconDiv);
-            iconDiv.addEventListener('click', () => {
-                const starIcon = iconDiv.querySelector('svg');
-                console.log('holas');
-
-                iconDiv.removeChild(starIcon);
-                iconDiv.insertAdjacentHTML('beforeend', playerSetFavorite(player));
-                // console.log(detail.lastChild);
-            });
+            presentPlayer = new Player(playerObj);
+            console.log(presentPlayer);
+            serveDetails(presentPlayer, playerDetailDiv);
         } else {
             console.log(response.status);
         }
+    }
+});
+
+playerDetailDiv.addEventListener('click', (e) => {
+    if (e.target.matches('#divStar, svg')) {
+        const starIcon = playerDetailDiv.querySelector('svg');
+        const iconDiv = playerDetailDiv.querySelector('#divStar');
+        iconDiv.removeChild(starIcon);
+        iconDiv.insertAdjacentHTML('beforeend', playerSetFavorite(presentPlayer));
     }
 });

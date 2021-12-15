@@ -22,12 +22,10 @@ export async function getTeams() {
 }
 
 export function serveTeams(teams, teamsList) {
-    // https://media.api-sports.io/football/teams/{team_id}.png
-    teamsList.innerHTML = '';
     for (const team of teams) {
         const item = `
         <li class='team_item list-group-item' name=${team.team.id}>
-            <div>
+            <div style=" cursor: pointer;">
                 <img style="height: 4em;" 
                 src="https://media.api-sports.io/football/teams/${team.team.id}.png" alt="">
                 ${team.team.name}
