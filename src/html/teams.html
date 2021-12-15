@@ -13,15 +13,31 @@
 </head>
 <body>
     <header>
-        <ul class="nav nav-tabs justify-content-center">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Teams</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="myTeam.html">MyTeam</a>
-            </li>
-        </ul>
-        <a><button><i class="glyphicon glyphicon-log-out" style="font-size:20px"></i>Log Out</button></a>
+        <nav class="d-flex">
+           <div class="row container-fluid">
+                <div class="">
+                    <a class="navbar-brand" href="#" id="username">
+
+                    </a>
+                    <ul class="nav nav-pills justify-content-center">
+                        <li class="nav-item">
+                            <a class="nav-link active"  href="#">Teams</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " aria-current="page" href="myTeam.html">MyTeam</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="py-1">
+                <a id="logOut">
+                    <button class="btn btn-dark rounded-pill align-middle">
+                        <i class="glyphicon glyphicon-log-out py-1" style="font: size 1em;"></i>
+                    </button>
+                </a>
+            </div>
+        </nav>
+        
     </header>
     <div class="container-fluid">
         <div class="row">
@@ -34,13 +50,13 @@
             <div class="col-4">
                 <h6>Players</h6>
                 <ul id="playerList" class="list-group">
-                    <li class="list-group-item" style="height: 1780px;"></li>
+                    <li class="list-group-item" style="height: min-content;"></li>
                 </ul>
             </div>
             <div class="col-4">
                 <h6>Detail</h6>
-                <div class="border rounded justify-content-center" id="playerDetail">
-                    
+                <div class="border rounded justify-content-center" id="playerDetail"style="height: min-content;">
+                    <p></p>
                 </div>
             </div>
             

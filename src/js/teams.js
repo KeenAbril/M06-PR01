@@ -17,7 +17,7 @@ const header = document.querySelector('header');
 const teamsList = document.getElementById('teamsList');
 const playersList = document.querySelector('#playerList');
 const playerDetailDiv = document.querySelector('#playerDetail');
-const usarname = header.querySelector('a');
+const usarname = header.querySelector('#username');
 const logout = header.querySelector('button');
 let presentPlayer;
 

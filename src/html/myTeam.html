@@ -11,27 +11,44 @@
 <body>
 
     <header>
-        <ul class="nav nav-tabs justify-content-center">
-            <li class="nav-item">
-              <a class="nav-link "  href="teams.html">Teams</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">MyTeam</a>
-            </li>
-       </ul>
-        <a><button><i class="glyphicon glyphicon-log-out" style="font-size:20px"></i>Log Out</button></a>
+        <nav class="d-flex">
+           <div class="row container-fluid">
+                <div class="">
+                    <a class="navbar-brand" href="#" id="username">
+
+                    </a>
+                    <ul class="nav nav-pills justify-content-center">
+                        <li class="nav-item">
+                            <a class="nav-link "  href="teams.html">Teams</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">MyTeam</a>
+                        </li>
+                    </ul>
+                </div>
+            </div> 
+            <a class="align-middle" id="logOut">
+                <button class="btn btn-dark rounded-pill align-middle">
+                    <i class="glyphicon glyphicon-log-out" style="font: size 1em;"></i>
+                </button>
+            </a>
+        </nav>
+        
     </header>
 
     <div class="container-fluid">
         <div class="row">
             <div class="col-3">
-                <h6>Your Players</h6>
                 <ul id="playersList" class="list-group">
                     
                 </ul>
             </div>
-            <div class="col-9">
+            <div class="col-4 border rounded" style="height:min-content;">
+                <div id="playerDetail"></div>
                 <canvas id="myChart"></canvas>
+            </div>
+            <div class="col-5 border rounded" style="height:min-content;">
+
             </div>
         </div>
     </div>

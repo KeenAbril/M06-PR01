@@ -1,44 +1,18 @@
+/* eslint-disable no-console */
 import { Chart, registerables } from 'chart.js';
 import { Player } from './classes/Player';
-import { getPlayerResponse, servePlayers } from './functions/playerFunctions';
+import { serveDetails, servePlayers } from './functions/playerFunctions';
 import { createData } from './constants/chartConstants';
 import { getUserNameFromkSesionStorage, checkSesionStorage, logOut } from './functions/registerFunctions';
 
 Chart.register(...registerables);
 
 const header = document.querySelector('header');
-const usarname = header.querySelector('a');
+const usarname = header.querySelector('#username');
 const logout = header.querySelector('button');
 const playersList = document.getElementById('playersList');
+const playerDetail = document.getElementById('playerDetail');
 
-// Test Function adds default
-/*
-async function saveTestPlayers() {
-    const playerList = [];
-    const response = await getPlayerResponse(529);
-    const players = response.msg.response;
-    for (let i = 0; i < players.length; i++) {
-        const playerObj = {
-            id: players[i].player.id,
-            name: players[i].player.name,
-            photo: players[i].player.photo,
-            // team: id,
-        };
-
-        console.log(JSON.stringify(playerObj));
-
-        const player = new Player(playerObj);
-        playerList.push(player);
-    }
-    localStorage.setItem('playerList', JSON.stringify(playerList));
-}
-try {
-    document.querySelector('#testLoad').addEventListener('click', async () => {
-        await saveTestPlayers();
-        alert('Players saved');
-    });
-} catch {}
-*/
 let list;
 let statChart;
 
@@ -49,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (checkSesionStorage()) {
         usarname.text = getUserNameFromkSesionStorage();
-        const list = JSON.parse(localStorage.getItem('playerList'));
+        list = JSON.parse(localStorage.getItem('players'));
         console.log(list);
         servePlayers(list, playersList);
     } else {
@@ -69,8 +43,7 @@ playersList.addEventListener('click', (e) => {
         // eslint-disable-next-line eqeqeq
         const playerObj = list.find((elem) => elem.id == idPlayer);
         const player = new Player(playerObj);
-        console.log(player);
-        // shots, passes, key passes, duels, dribbles
+        serveDetails(player, playerDetail);
         const config = {
             type: 'radar',
             data: createData([
@@ -80,7 +53,6 @@ playersList.addEventListener('click', (e) => {
             ]),
             options: {},
         };
-        console.log(config.data);
         // eslint-disable-next-line no-unused-vars
         if (statChart instanceof Chart) {
             statChart.destroy();

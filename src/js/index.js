@@ -4,7 +4,7 @@ import { getRegisterResponse, checkSesionStorage } from './functions/registerFun
 const form = document.getElementById('formRegister');
 
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log(checkSesionStorage())
+    console.log(checkSesionStorage());
     if (checkSesionStorage()) {
         window.location.href = 'teams.html';
     }
