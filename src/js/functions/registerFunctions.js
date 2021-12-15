@@ -18,3 +18,15 @@ export async function getRegisterResponse(usrObj) {
         return { status: false, msg: e };
     }
 }
+
+export function checkSesionStorage() {
+    return sessionStorage.getItem('User') !== null;
+}
+
+export function getUserNameFromkSesionStorage() {
+    return JSON.parse(sessionStorage.getItem('User')).username;
+}
+
+export function logOut() {
+    sessionStorage.clear();
+}

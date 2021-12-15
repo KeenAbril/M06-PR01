@@ -24,7 +24,6 @@ formPlayer.addEventListener('submit', async (e) => {
         const players = response.msg.response;
 
         for (let i = 0; i < players.length; i++) {
-
             const playerObj = {
                 id: players[i].player.id,
                 name: players[i].player.name,

@@ -1,9 +1,15 @@
 import { User } from './classes/User';
-import { getRegisterResponse } from './functions/registerFunctions';
+import { getRegisterResponse, checkSesionStorage } from './functions/registerFunctions';
 
 const form = document.getElementById('formRegister');
 
-console.log(form);
+document.addEventListener('DOMContentLoaded', async () => {
+    console.log(checkSesionStorage())
+    if (checkSesionStorage()) {
+        window.location.href = 'teams.html';
+    }
+});
+
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const usrObj = {

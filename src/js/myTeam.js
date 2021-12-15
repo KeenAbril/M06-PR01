@@ -2,8 +2,13 @@ import { Chart, registerables } from 'chart.js';
 import { Player } from './classes/Player';
 import { getPlayerResponse, servePlayers } from './functions/playerFunctions';
 import { createData } from './constants/chartConstants';
+import { getUserNameFromkSesionStorage, checkSesionStorage, logOut } from './functions/registerFunctions';
 
 Chart.register(...registerables);
+
+const header = document.querySelector('header');
+const usarname = header.querySelector('a');
+const logout = header.querySelector('button');
 const playersList = document.getElementById('playersList');
 
 // Test Function adds default
@@ -36,10 +41,25 @@ try {
 */
 let list;
 let statChart;
+
 document.addEventListener('DOMContentLoaded', () => {
     list = JSON.parse(localStorage.getItem('players'));
     console.log(list);
     servePlayers(list, playersList);
+
+    if (checkSesionStorage()) {
+        usarname.text = getUserNameFromkSesionStorage();
+        const list = JSON.parse(localStorage.getItem('playerList'));
+        console.log(list);
+        servePlayers(list, playersList);
+    } else {
+        window.location.href = 'index.html';
+    }
+});
+
+logout.addEventListener('click', () => {
+    logOut();
+    window.location.href = 'index.html';
 });
 
 playersList.addEventListener('click', (e) => {

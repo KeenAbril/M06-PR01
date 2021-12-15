@@ -5,26 +5,37 @@ import {
     getPlayerListResponse,
     getPlayerResponse,
     servePlayers,
-    playerCheckFavorite,
-    playerSetFavorite,
     getPlayerJSON,
     serveDetails,
 } from './functions/playerFunctions';
+import { getUserNameFromkSesionStorage, checkSesionStorage, logOut } from './functions/registerFunctions';
+import { playerCheckFavorite, playerSetFavorite } from './functions/detailFunctions';
 import { Player } from './classes/Player';
 
-console.log('teams');
 const teams = [];
+const header = document.querySelector('header');
 const teamsList = document.getElementById('teamsList');
 const playersList = document.querySelector('#playerList');
 const playerDetailDiv = document.querySelector('#playerDetail');
+const usarname = header.querySelector('a');
+const logout = header.querySelector('button');
 let presentPlayer;
 
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log('call');
-    const resp = await getTeams();
-    teams.push(...resp.msg.response);
-    console.log(teams);
-    serveTeams(teams, teamsList);
+    if (checkSesionStorage()) {
+        usarname.text = getUserNameFromkSesionStorage();
+        const resp = await getTeams();
+        teams.push(...resp.msg.response);
+        console.log(teams);
+        serveTeams(teams, teamsList);
+    } else {
+        window.location.href = 'index.html';
+    }
+});
+
+logout.addEventListener('click', () => {
+    logOut();
+    window.location.href = 'index.html';
 });
 
 // get team players
