@@ -12,6 +12,7 @@ export class Player {
         this.passes = playerObj.passes;
         this.duels = playerObj.duels;
         this.dribbles = playerObj.dribbles;
+        this.position = playerObj.position;
     }
 
     getPasses() {

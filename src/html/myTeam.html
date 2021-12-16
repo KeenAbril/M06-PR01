@@ -17,7 +17,7 @@
                     <a class="navbar-brand" href="#" id="username">
 
                     </a>
-                    <ul class="nav nav-pills justify-content-center">
+                    <ul class="nav nav-pills">
                         <li class="nav-item">
                             <a class="nav-link "  href="teams.html">Teams</a>
                         </li>
@@ -39,16 +39,23 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-3">
+                <h6>Favorite Players</h6>
                 <ul id="playersList" class="list-group">
                     
                 </ul>
             </div>
-            <div class="col-4 border rounded" style="height:min-content;">
-                <div id="playerDetail"></div>
-                <canvas id="myChart"></canvas>
+            
+            <div class="col-5" style="height:min-content; background-image: url('../img/Football_field.png');" >
+                <h6>Your Team</h6>
+                <div class="dropzone border rounded" id="teamArea" style="height: min-content;">
+                    <div style="height: 2em;"></div>
+                </div>
             </div>
-            <div class="col-5 border rounded" style="height:min-content;">
 
+            <div class="col-4" style="height:min-content;">
+                <h6>Stats</h6>
+                <div id="playerDetail" class="border rounded"></div>
+                <canvas id="myChart"></canvas>
             </div>
         </div>
     </div>

@@ -95,6 +95,7 @@ playersList.addEventListener('click', async (e) => {
                 passes: playersResponse.statistics[0].passes,
                 duels: playersResponse.statistics[0].duels,
                 dribbles: playersResponse.statistics[0].dribbles,
+                position: playersResponse.statistics[0].games.position,
 
             };
             console.log(playersResponse.statistics[0].team.id);

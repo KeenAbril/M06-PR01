@@ -29,8 +29,19 @@ export function playerSetFavorite(player) {
     } else {
         const favPlayers = JSON.parse(storagePlayers);
 
-        if (favPlayers.filter((f) => f.id === player.id).length > 0) {
+        if (favPlayers.some((f) => f.id === player.id)) {
             localStorage.setItem('players', JSON.stringify(favPlayers.filter((f) => f.id !== player.id)));
+            // remove from team
+            try {
+                const team = JSON.parse(localStorage.getItem('team'));
+                console.log(team);
+                if (team.players.find((elem) => elem.id === player.id)) {
+                    team.players = team.players.filter((p) => p.id !== player.id);
+                    localStorage.setItem('team', JSON.stringify(team));
+                }
+            } catch (error) {
+                console.log(error);
+            }
         } else {
             favPlayers.push(player);
             localStorage.setItem('players', JSON.stringify(favPlayers));

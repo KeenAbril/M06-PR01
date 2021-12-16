@@ -92,7 +92,8 @@ export function playerSetFavorite(player) {
     } else {
         const favPlayers = JSON.parse(storagePlayers);
 
-        if (favPlayers.filter((f) => f.id === player.id).length > 0) {
+        // eslint-disable-next-line eqeqeq
+        if (favPlayers.some((f) => f.id == player.id)) {
             localStorage.setItem('players', JSON.stringify(favPlayers.filter((f) => f.id !== player.id)));
         } else {
             favPlayers.push(player);
@@ -130,7 +131,8 @@ export function serveDetails(player, div) {
             </div>
             <p>Nombre: $$ITEM_FIRSTNAME$$</p>
             <p>Apellido: $$ITEM_LASTNAME$$</p>
-            <p> Edad: $$ITEM_AGE$$</p>
+            <p>Edad: $$ITEM_AGE$$</p>
+            <p>Posición: $$ITEM_POS$$</p>
             
         </div>
     `;
@@ -139,6 +141,7 @@ export function serveDetails(player, div) {
         .replace('$$ITEM_PHOTO$$', player.photo)
         .replace('$$ITEM_FIRSTNAME$$', player.firstName)
         .replace('$$ITEM_LASTNAME$$', player.lastName)
+        .replace('$$ITEM_POS$$', player.position)
         .replace('$$ITEM_STAR$$', playerCheckFavorite(player));
     div.innerHTML = '';
     div.insertAdjacentHTML('beforeend', replacedItemHTML);
