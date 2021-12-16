@@ -34,13 +34,13 @@ export function playerSetFavorite(player) {
             // remove from team
             try {
                 const team = JSON.parse(localStorage.getItem('team'));
-                console.log(team);
+                // console.log(team);
                 if (team.players.find((elem) => elem.id === player.id)) {
                     team.players = team.players.filter((p) => p.id !== player.id);
                     localStorage.setItem('team', JSON.stringify(team));
                 }
             } catch (error) {
-                console.log(error);
+                // console.log(error);
             }
         } else {
             favPlayers.push(player);

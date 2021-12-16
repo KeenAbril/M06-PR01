@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/prefer-default-export
 export async function getTeams() {
     try {
-        //COMO SE HARIA CON LA API
+        // COMO SE HARIA CON LA API
         /* const response = await fetch('https://v3.football.api-sports.io/teams?league=140&season=2020', {
             method: 'GET',
             headers: {
@@ -10,11 +10,11 @@ export async function getTeams() {
             },
         }); */
 
-        const response = await fetch('../json/Teams.json'); 
+        const response = await fetch('../json/Teams.json');
 
         const data = await response.json();
 
-        console.log(data);
+        // console.log(data);
         return { status: response.status, msg: data };
     } catch (error) {
         return { status: false, msg: error };

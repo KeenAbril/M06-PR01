@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
 import { getTeams, serveTeams } from './functions/teamsFunctions';
 import {
     getPlayerListResponse,
@@ -26,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         usarname.text = getUserNameFromkSesionStorage();
         const resp = await getTeams();
         teams.push(...resp.msg.response);
-        console.log(teams);
+        // console.log(teams);
         serveTeams(teams, teamsList);
     } else {
         window.location.href = 'index.html';
@@ -40,7 +39,7 @@ logout.addEventListener('click', () => {
 
 // get team players
 teamsList.addEventListener('click', async (e) => {
-    console.log(e.target);
+    // console.log(e.target);
     const item = e.target.closest('.team_item');
     if (item) {
         const id = item.getAttribute('name');
@@ -64,7 +63,7 @@ teamsList.addEventListener('click', async (e) => {
             }
             servePlayers(players, playersList);
         } else {
-            console.log(response.status);
+            // console.log(response.status);
         }
     }
 });
@@ -79,10 +78,10 @@ playersList.addEventListener('click', async (e) => {
         // const response = await getPlayerResponse(idPlayer);
         const response = await getPlayerJSON(idPlayer);
         if (response.status !== 404) {
-            console.log(response.msg);
+            // console.log(response.msg);
             // const playersResponse = response.msg.response;
             const playersResponse = response.msg;
-            console.log(playersResponse.player.id);
+            // console.log(playersResponse.player.id);
 
             const playerObj = {
                 id: playersResponse.player.id,
@@ -99,15 +98,15 @@ playersList.addEventListener('click', async (e) => {
                 position: playersResponse.statistics[0].games.position,
 
             };
-            console.log(playersResponse.statistics[0].team.id);
+            // console.log(playersResponse.statistics[0].team.id);
 
             // console.log(JSON.stringify(playerObj));
 
             presentPlayer = new Player(playerObj);
-            console.log(presentPlayer);
+            // console.log(presentPlayer);
             serveDetails(presentPlayer, playerDetailDiv);
         } else {
-            console.log(response.status);
+            // console.log(response.status);
         }
     }
 });

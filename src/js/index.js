@@ -4,7 +4,7 @@ import { getRegisterResponse, checkSesionStorage } from './functions/registerFun
 const form = document.getElementById('formRegister');
 
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log(checkSesionStorage());
+    // console.log(checkSesionStorage());
     if (checkSesionStorage()) {
         window.location.href = 'teams.html';
     }
@@ -28,9 +28,8 @@ form.addEventListener('submit', async (e) => {
             u.saveUser();
             window.location.href = 'teams.html';
         } else {
-            console.log(usrObj);
-            window.alert('nop');
-            // TODO alerta bien
+            // console.log(usrObj);
+            window.alert('Error');
         }
     }
 });
