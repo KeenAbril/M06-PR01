@@ -76,6 +76,7 @@ playersList.addEventListener('click', async (e) => {
     // console.log(item.getAttribute('name'));
     if (item) {
         const idPlayer = item.getAttribute('name');
+        // const response = await getPlayerResponse(idPlayer);
         const response = await getPlayerJSON(idPlayer);
         if (response.status !== 404) {
             console.log(response.msg);
