@@ -112,7 +112,8 @@ playersList.addEventListener('click', async (e) => {
 });
 
 playerDetailDiv.addEventListener('click', (e) => {
-    if (e.target.matches('#divStar, svg')) {
+    const item = e.target.closest('svg');
+    if (item) {
         const starIcon = playerDetailDiv.querySelector('svg');
         const iconDiv = playerDetailDiv.querySelector('#divStar');
         iconDiv.removeChild(starIcon);
